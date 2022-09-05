@@ -52,7 +52,9 @@
 			isa = PBXGroup;
 			children = (
 				D6A9E35528C623C100973A5C /* swifty_proteinsApp.swift */,
+				D6EE319128C63CA90091E5B3 /* Models */,
 				D6A9E35728C623C100973A5C /* ContentView.swift */,
+				D6A9E36328C6243C00973A5C /* Views */,
 				D6A9E35928C623C400973A5C /* Assets.xcassets */,
 				D6A9E35B28C623C400973A5C /* Preview Content */,
 			);
@@ -65,6 +67,20 @@
 				D6A9E35C28C623C400973A5C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D6A9E36328C6243C00973A5C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D6EE319128C63CA90091E5B3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +286,7 @@
 				DEVELOPMENT_TEAM = 2GX2JHQ98K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We need to log you in to access the application data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -299,6 +316,7 @@
 				DEVELOPMENT_TEAM = 2GX2JHQ98K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We need to log you in to access the application data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
