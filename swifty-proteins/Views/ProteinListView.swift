@@ -12,28 +12,12 @@ struct ProteinListView: View {
 	
 	var body: some View {
 		List {
-			ForEach(model.dataArray, id: \.self) { data in
-				NavigationLink(destination: ProteinDetailView()) {
-					Text(data)
+			ForEach(model.dataArray, id: \.self) { ligand in
+				NavigationLink(destination: ProteinDetailView(ligand: ligand)) {
+					Text(ligand)
 				}
 			}
 		}
-		/*List {
-			ForEach(model.dataArray, id: \.) {
-				Text(model.dataArray)
-			}
-		}*/
-		/*List {
-			Text(model.dataArray)
-			Text(model.dataArray)
-		}*/
-		/*List() {
-			NavigationLink(destination: ProteinDetailView(model: model)) {
-				Text(model.data).frame(maxWidth: .infinity)
-			}
-		}
-		.padding()
-		.navigationBarTitle("Ligand IDs")*/
 	}
 }
 

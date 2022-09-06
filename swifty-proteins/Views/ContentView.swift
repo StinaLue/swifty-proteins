@@ -129,7 +129,7 @@ struct ContentView: View {
 
 class LigandModel: ObservableObject {
 	
-	@Published var data: String = ""
+	//@Published var data: String = ""
 	@Published var dataArray: [String] = []
 	
 	init() { self.load(file: "data") }
@@ -139,7 +139,7 @@ class LigandModel: ObservableObject {
 			do {
 				let contents = try String(contentsOfFile: filepath)
 				DispatchQueue.main.async {
-					self.data = contents
+					//self.data = contents
 					self.dataArray = contents.components(separatedBy: "\n")
 				}
 			} catch let error as NSError {

@@ -9,15 +9,17 @@ import SwiftUI
 
 struct ProteinDetailView: View {
 	//var model: LigandModel
+	var ligand = ""
 
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-		//Text(model.data)
+		VStack {
+			Text("It's the \(ligand) ligand :D")
+		}
     }
 }
 
 struct ProteinDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ProteinDetailView()
+        ProteinDetailView(ligand: "001")
     }
 }
