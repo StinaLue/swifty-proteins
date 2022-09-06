@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D68627A928C750D400441F2A /* AuthentificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68627A828C750D400441F2A /* AuthentificationHelper.swift */; };
+		D68627AB28C765F900441F2A /* ProteinListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68627AA28C765F800441F2A /* ProteinListView.swift */; };
+		D68627AE28C76DE000441F2A /* ProteinTextToDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68627AD28C76DE000441F2A /* ProteinTextToDict.swift */; };
+		D68627B228C7714000441F2A /* ligands.txt in Resources */ = {isa = PBXBuildFile; fileRef = D68627B128C7714000441F2A /* ligands.txt */; };
+		D68627B428C7939200441F2A /* ProteinDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68627B328C7939100441F2A /* ProteinDetailView.swift */; };
 		D6A9E35628C623C100973A5C /* swifty_proteinsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A9E35528C623C100973A5C /* swifty_proteinsApp.swift */; };
 		D6A9E35828C623C100973A5C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A9E35728C623C100973A5C /* ContentView.swift */; };
 		D6A9E35A28C623C400973A5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6A9E35928C623C400973A5C /* Assets.xcassets */; };
@@ -14,6 +19,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D68627A328C73E1700441F2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D68627A828C750D400441F2A /* AuthentificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthentificationHelper.swift; sourceTree = "<group>"; };
+		D68627AA28C765F800441F2A /* ProteinListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinListView.swift; sourceTree = "<group>"; };
+		D68627AD28C76DE000441F2A /* ProteinTextToDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinTextToDict.swift; sourceTree = "<group>"; };
+		D68627B128C7714000441F2A /* ligands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ligands.txt; sourceTree = "<group>"; };
+		D68627B328C7939100441F2A /* ProteinDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinDetailView.swift; sourceTree = "<group>"; };
 		D6A9E35228C623C100973A5C /* swifty-proteins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swifty-proteins.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6A9E35528C623C100973A5C /* swifty_proteinsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swifty_proteinsApp.swift; sourceTree = "<group>"; };
 		D6A9E35728C623C100973A5C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,10 +43,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D68627A728C750C400441F2A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D68627A828C750D400441F2A /* AuthentificationHelper.swift */,
+				D68627AD28C76DE000441F2A /* ProteinTextToDict.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D68627AC28C7675000441F2A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		D6A9E34928C623C100973A5C = {
 			isa = PBXGroup;
 			children = (
+				D68627B128C7714000441F2A /* ligands.txt */,
+				D68627AC28C7675000441F2A /* Resources */,
 				D6A9E35428C623C100973A5C /* swifty-proteins */,
+				D6A9E35B28C623C400973A5C /* Preview Content */,
 				D6A9E35328C623C100973A5C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,12 +81,12 @@
 		D6A9E35428C623C100973A5C /* swifty-proteins */ = {
 			isa = PBXGroup;
 			children = (
+				D68627A728C750C400441F2A /* Helpers */,
 				D6A9E35528C623C100973A5C /* swifty_proteinsApp.swift */,
+				D68627A328C73E1700441F2A /* Info.plist */,
 				D6EE319128C63CA90091E5B3 /* Models */,
-				D6A9E35728C623C100973A5C /* ContentView.swift */,
 				D6A9E36328C6243C00973A5C /* Views */,
 				D6A9E35928C623C400973A5C /* Assets.xcassets */,
-				D6A9E35B28C623C400973A5C /* Preview Content */,
 			);
 			path = "swifty-proteins";
 			sourceTree = "<group>";
@@ -72,6 +102,9 @@
 		D6A9E36328C6243C00973A5C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D6A9E35728C623C100973A5C /* ContentView.swift */,
+				D68627AA28C765F800441F2A /* ProteinListView.swift */,
+				D68627B328C7939100441F2A /* ProteinDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -143,6 +176,7 @@
 			files = (
 				D6A9E35D28C623C400973A5C /* Preview Assets.xcassets in Resources */,
 				D6A9E35A28C623C400973A5C /* Assets.xcassets in Resources */,
+				D68627B228C7714000441F2A /* ligands.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,8 +187,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D68627AB28C765F900441F2A /* ProteinListView.swift in Sources */,
 				D6A9E35828C623C100973A5C /* ContentView.swift in Sources */,
+				D68627AE28C76DE000441F2A /* ProteinTextToDict.swift in Sources */,
+				D68627A928C750D400441F2A /* AuthentificationHelper.swift in Sources */,
 				D6A9E35628C623C100973A5C /* swifty_proteinsApp.swift in Sources */,
+				D68627B428C7939200441F2A /* ProteinDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,10 +324,10 @@
 				DEVELOPMENT_TEAM = 2GX2JHQ98K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "swifty-proteins/Info.plist";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We need to log you in to access the application data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -316,10 +354,10 @@
 				DEVELOPMENT_TEAM = 2GX2JHQ98K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "swifty-proteins/Info.plist";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We need to log you in to access the application data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

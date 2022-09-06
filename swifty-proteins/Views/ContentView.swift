@@ -11,24 +11,34 @@ import LocalAuthentication // Needed for Face ID / Biometric auth
 struct ContentView: View {
 	@State private var isUnlocked = false
 	@State private var noBiometrics = false
+	@ObservedObject var model = LigandModel()
 	
     var body: some View {
-		VStack {
-			if isUnlocked {
-				if noBiometrics {
-					Text("Your device is not compatible with this application")
+		NavigationView {
+			VStack {
+				if isUnlocked {
+					if noBiometrics {
+						Text("Your device is not compatible with this application")
+					}
+					else {
+						Text("Unlocked")
+						VStack {
+							NavigationLink(destination: ProteinListView(model: model/*, dataArray: model.dataArray*/), isActive: self.$isUnlocked){
+								//
+							}
+						}
+						.padding()
+					}
 				}
 				else {
-					Text("Unlocked")
-				}
-			}
-			else {
-				Text("Locked")
-				Button("Authenticate") {
-					authenticate()
+					Text("Locked")
+					Button("Authenticate") {
+						authenticate()
+					}
 				}
 			}
 		}
+		.navigationBarTitle("Login View")
     }
 	
 	func authenticate() {
@@ -45,7 +55,6 @@ struct ContentView: View {
 				// authentication has now completed
 				if success {
 					isUnlocked = true
-					print("auth successful")
 					// authenticated successfully
 				} else {
 					let code = LAError.Code(rawValue: error!.code) // TODO : Verify
@@ -114,6 +123,30 @@ struct ContentView: View {
 			print("no biometric auth possible")
 			noBiometrics = true
 			// no biometrics
+		}
+	}
+}
+
+class LigandModel: ObservableObject {
+	
+	@Published var data: String = ""
+	@Published var dataArray: [String] = []
+	
+	init() { self.load(file: "data") }
+	
+	func load(file: String) {
+		if let filepath = Bundle.main.path(forResource: "ligands", ofType: "txt") {
+			do {
+				let contents = try String(contentsOfFile: filepath)
+				DispatchQueue.main.async {
+					self.data = contents
+					self.dataArray = contents.components(separatedBy: "\n")
+				}
+			} catch let error as NSError {
+				print(error.localizedDescription)
+			}
+		} else {
+			print("File not found")
 		}
 	}
 }
