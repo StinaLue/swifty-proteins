@@ -10,7 +10,6 @@
 		D605EFC328C89AA200B7EDA8 /* LigandModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D605EFC228C89AA200B7EDA8 /* LigandModel.swift */; };
 		D68627A928C750D400441F2A /* AuthentificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68627A828C750D400441F2A /* AuthentificationHelper.swift */; };
 		D68627AB28C765F900441F2A /* ProteinListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68627AA28C765F800441F2A /* ProteinListView.swift */; };
-		D68627AE28C76DE000441F2A /* ProteinTextToDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68627AD28C76DE000441F2A /* ProteinTextToDict.swift */; };
 		D68627B228C7714000441F2A /* ligands.txt in Resources */ = {isa = PBXBuildFile; fileRef = D68627B128C7714000441F2A /* ligands.txt */; };
 		D68627B428C7939200441F2A /* ProteinDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68627B328C7939100441F2A /* ProteinDetailView.swift */; };
 		D6A9E35628C623C100973A5C /* swifty_proteinsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A9E35528C623C100973A5C /* swifty_proteinsApp.swift */; };
@@ -24,7 +23,6 @@
 		D68627A328C73E1700441F2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D68627A828C750D400441F2A /* AuthentificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthentificationHelper.swift; sourceTree = "<group>"; };
 		D68627AA28C765F800441F2A /* ProteinListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinListView.swift; sourceTree = "<group>"; };
-		D68627AD28C76DE000441F2A /* ProteinTextToDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinTextToDict.swift; sourceTree = "<group>"; };
 		D68627B128C7714000441F2A /* ligands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ligands.txt; sourceTree = "<group>"; };
 		D68627B328C7939100441F2A /* ProteinDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinDetailView.swift; sourceTree = "<group>"; };
 		D6A9E35228C623C100973A5C /* swifty-proteins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swifty-proteins.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,7 +47,6 @@
 			isa = PBXGroup;
 			children = (
 				D68627A828C750D400441F2A /* AuthentificationHelper.swift */,
-				D68627AD28C76DE000441F2A /* ProteinTextToDict.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -192,7 +189,6 @@
 			files = (
 				D68627AB28C765F900441F2A /* ProteinListView.swift in Sources */,
 				D6A9E35828C623C100973A5C /* ContentView.swift in Sources */,
-				D68627AE28C76DE000441F2A /* ProteinTextToDict.swift in Sources */,
 				D68627A928C750D400441F2A /* AuthentificationHelper.swift in Sources */,
 				D6A9E35628C623C100973A5C /* swifty_proteinsApp.swift in Sources */,
 				D68627B428C7939200441F2A /* ProteinDetailView.swift in Sources */,

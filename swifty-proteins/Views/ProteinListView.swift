@@ -20,9 +20,12 @@ struct ProteinListView: View {
 					}
 				}
 			}
+			.padding(.bottom)
 			.navigationTitle("Ligands")
 			.searchable(text: $searchText, prompt: "Search for a ligand")
 		}
+		.navigationBarHidden(true)
+		.navigationBarBackButtonHidden(true)
 	}
 	var filteredLigands: [String] {
 		if searchText.isEmpty {
