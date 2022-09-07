@@ -8,21 +8,33 @@
 import SwiftUI
 
 struct ProteinListView: View {
-	@ObservedObject var model: LigandModel
+	@ObservedObject var model: Ligands
+	@State private var searchText = ""
 	
 	var body: some View {
-		List {
-			ForEach(model.dataArray, id: \.self) { ligand in
-				NavigationLink(destination: ProteinDetailView(ligand: ligand)) {
-					Text(ligand)
+		NavigationView {
+			List {
+				ForEach(filteredLigands, id: \.self) { ligand in
+					NavigationLink(destination: ProteinDetailView(ligand: ligand)) {
+						Text(ligand)
+					}
 				}
 			}
+			.navigationTitle("Ligands")
+			.searchable(text: $searchText, prompt: "Search for a ligand")
+		}
+	}
+	var filteredLigands: [String] {
+		if searchText.isEmpty {
+			return model.dataArray
+		} else {
+			return model.dataArray.filter { $0.localizedCaseInsensitiveContains(searchText) }
 		}
 	}
 }
 
 struct ProteinListView_Previews: PreviewProvider {
 	static var previews: some View {
-		ProteinListView(model: LigandModel()/*, dataArray: LigandModel().dataArray*/)
+		ProteinListView(model: Ligands())
 	}
 }

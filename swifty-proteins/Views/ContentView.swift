@@ -9,9 +9,9 @@ import SwiftUI
 import LocalAuthentication // Needed for Face ID / Biometric auth
 
 struct ContentView: View {
-	@State private var isUnlocked = false
+	@State private var isUnlocked = true // TODO : put this to false
 	@State private var noBiometrics = false
-	@ObservedObject var model = LigandModel()
+	@ObservedObject var model = Ligands()
 	
     var body: some View {
 		NavigationView {
@@ -23,8 +23,7 @@ struct ContentView: View {
 					else {
 						Text("Unlocked")
 						VStack {
-							NavigationLink(destination: ProteinListView(model: model/*, dataArray: model.dataArray*/), isActive: self.$isUnlocked){
-								//
+							NavigationLink(destination: ProteinListView(model: model), isActive: self.$isUnlocked){
 							}
 						}
 						.padding()
@@ -37,8 +36,8 @@ struct ContentView: View {
 					}
 				}
 			}
+			.navigationBarTitle("Login View")
 		}
-		.navigationBarTitle("Login View")
     }
 	
 	func authenticate() {
@@ -127,9 +126,8 @@ struct ContentView: View {
 	}
 }
 
-class LigandModel: ObservableObject {
+class Ligands: ObservableObject {
 	
-	//@Published var data: String = ""
 	@Published var dataArray: [String] = []
 	
 	init() { self.load(file: "data") }
@@ -139,7 +137,6 @@ class LigandModel: ObservableObject {
 			do {
 				let contents = try String(contentsOfFile: filepath)
 				DispatchQueue.main.async {
-					//self.data = contents
 					self.dataArray = contents.components(separatedBy: "\n")
 				}
 			} catch let error as NSError {

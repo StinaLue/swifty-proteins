@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ProteinDetailView: View {
-	//var model: LigandModel
-	var ligand = ""
+
+	@State var ligand = ""
 
     var body: some View {
 		VStack {
 			Text("It's the \(ligand) ligand :D")
+			Text("https://files.rcsb.org/ligands/view/\(ligand)_model.sdf")
 		}
     }
 }
