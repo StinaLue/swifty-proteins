@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D605EFC328C89AA200B7EDA8 /* LigandModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D605EFC228C89AA200B7EDA8 /* LigandModel.swift */; };
+		D62D6B0C28CB5B5600E2D223 /* SceneKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62D6B0B28CB5B5600E2D223 /* SceneKitView.swift */; };
 		D68627A928C750D400441F2A /* AuthentificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68627A828C750D400441F2A /* AuthentificationHelper.swift */; };
 		D68627AB28C765F900441F2A /* ProteinListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68627AA28C765F800441F2A /* ProteinListView.swift */; };
 		D68627B228C7714000441F2A /* ligands.txt in Resources */ = {isa = PBXBuildFile; fileRef = D68627B128C7714000441F2A /* ligands.txt */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		D605EFC228C89AA200B7EDA8 /* LigandModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LigandModel.swift; sourceTree = "<group>"; };
+		D62D6B0B28CB5B5600E2D223 /* SceneKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitView.swift; sourceTree = "<group>"; };
 		D68627A328C73E1700441F2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D68627A828C750D400441F2A /* AuthentificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthentificationHelper.swift; sourceTree = "<group>"; };
 		D68627AA28C765F800441F2A /* ProteinListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinListView.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				D6A9E35728C623C100973A5C /* ContentView.swift */,
 				D68627AA28C765F800441F2A /* ProteinListView.swift */,
 				D68627B328C7939100441F2A /* ProteinDetailView.swift */,
+				D62D6B0B28CB5B5600E2D223 /* SceneKitView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 			files = (
 				D68627AB28C765F900441F2A /* ProteinListView.swift in Sources */,
 				D6A9E35828C623C100973A5C /* ContentView.swift in Sources */,
+				D62D6B0C28CB5B5600E2D223 /* SceneKitView.swift in Sources */,
 				D68627A928C750D400441F2A /* AuthentificationHelper.swift in Sources */,
 				D6A9E35628C623C100973A5C /* swifty_proteinsApp.swift in Sources */,
 				D68627B428C7939200441F2A /* ProteinDetailView.swift in Sources */,

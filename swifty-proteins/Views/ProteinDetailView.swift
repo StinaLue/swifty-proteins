@@ -24,14 +24,10 @@ struct ProteinDetailView: View {
 
     var body: some View {
 		VStack {
-			//Text(Atoms[1].atomName)
-			/*Button("lel") {
-				fetchLigandIdealData()
-				finis = true
-			}*/
 			if finishedLoading {
-				SceneKitView()
-					.scaledToFit()
+				SceneKitView(atoms: atoms)
+					//.scaledToFit()
+					.scaledToFill()
 			}
 			if errorLoadingData {
 				Text("Content could not be loaded")
@@ -93,20 +89,37 @@ struct ProteinDetailView: View {
 		}
 		isLoading = false
 		finishedLoading = true
-		/*for atom in atoms {
-			print(atom)
-		}*/
 	}
 	func setColorOfAtom(atom: String) -> UIColor {
 
 		let colorOfAtom: UIColor
 		if atom == "H" {
+			colorOfAtom = UIColor.white
+		}
+		else if atom == "C" {
+			colorOfAtom = UIColor.gray
+		}
+		else if atom == "F" {
+			colorOfAtom = UIColor.green
+		}
+		else if atom == "L" {
+			colorOfAtom = UIColor.brown
+		}
+		else if atom == "N" {
+			colorOfAtom = UIColor.blue
+		}
+		else if atom == "O" {
 			colorOfAtom = UIColor.red
 		}
-		else {
-			colorOfAtom =  UIColor.blue
+		else if atom == "P" {
+			colorOfAtom = UIColor.orange
 		}
-		//print(atom)
+		else if atom == "S" {
+			colorOfAtom = UIColor.yellow
+		}
+		else {
+			colorOfAtom =  UIColor.cyan
+		}
 		return(colorOfAtom)
 	}
 }
@@ -124,52 +137,6 @@ struct Atom {
 	var zCoordinate: Double
 	var element: String
 	var color: UIColor // TODO : make type Color
-}
-
-struct SceneKitView: UIViewRepresentable {
-	@State private var atoms = [Atom]()
-
-	func makeUIView(context: UIViewRepresentableContext<SceneKitView>) -> SCNView {
-		let sceneView = SCNView()
-		sceneView.scene = SCNScene()
-		sceneView.allowsCameraControl = true
-		sceneView.autoenablesDefaultLighting = true
-		sceneView.backgroundColor = UIColor.systemBackground
-		var sphere = [[UIColor.red, Float(1.0)], [UIColor.blue, Float(2.8)], [UIColor.yellow, Float(1.8)], [UIColor.green, Float(4.8)]]
-		for atom in atoms {
-			print("yas")
-			print(atom)
-		}
-		print(atoms)
-		for item in sphere {
-			let thing = SCNSphere(radius: 0.1)
-			thing.firstMaterial?.diffuse.contents = item[0]
-			let spherenode = SCNNode(geometry: thing)
-			spherenode.position = SCNVector3(x: item[1] as! Float, y: 0.1, z: 0.1)
-			sceneView.scene?.rootNode.addChildNode(spherenode)
-		}
-		//let sphere = SCNSphere(radius: 0.5)
-		//let sphere2 = SCNSphere(radius: 0.5)
-		
-		//sphere.firstMaterial?.diffuse.contents = UIColor.blue
-		//sphere2.firstMaterial?.diffuse.contents = UIColor.red
-		
-		//let spherenode = SCNNode(geometry: sphere)
-		//spherenode.position = SCNVector3(x: 0.1, y: 0.1, z: 0.1)
-		//let spherenode2 = SCNNode(geometry: sphere2)
-		//spherenode2.position = SCNVector3(x: 0.0, y: 0.0, z: 0.5)
-		
-		//sceneView.scene?.rootNode.addChildNode(spherenode)
-		//sceneView.scene?.rootNode.addChildNode(spherenode2)
-		
-		return sceneView
-	}
-	
-	func updateUIView(_ uiView: SCNView, context: UIViewRepresentableContext<SceneKitView>) {
-		
-	}
-	
-	typealias UIViewType = SCNView
 }
 
 struct ProteinDetailView_Previews: PreviewProvider {
