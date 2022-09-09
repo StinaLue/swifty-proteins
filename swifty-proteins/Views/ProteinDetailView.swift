@@ -16,8 +16,10 @@ struct ProteinDetailView: View {
 	@State private var errorLoadingData = false
 	@State private var wrongURL = false
 	@State private var showingAlert = true
-	
 	@State private var finishedLoading = false
+	@State private var showHydros = true
+
+	
 	@State private var contents = ""
 	@State private var atoms = [Atom]()
 	@State var ligand = ""
@@ -25,9 +27,11 @@ struct ProteinDetailView: View {
     var body: some View {
 		VStack {
 			if finishedLoading {
-				SceneKitView(atoms: atoms)
-					//.scaledToFit()
-					.scaledToFill()
+				SceneKitView(atoms: atoms, showHydros: $showHydros)
+				.scaledToFill()
+				//.scaledToFit()
+				Toggle("Show hydrogens", isOn: $showHydros)
+					.toggleStyle(SwitchToggleStyle(tint: .green))
 			}
 			if errorLoadingData {
 				Text("Content could not be loaded")
