@@ -30,8 +30,12 @@ struct ProteinDetailView: View {
 				SceneKitView(atoms: atoms, showHydros: $showHydros)
 				.scaledToFill()
 				//.scaledToFit()
-				Toggle("Show hydrogens", isOn: $showHydros)
-					.toggleStyle(SwitchToggleStyle(tint: .green))
+				HStack {
+					Spacer()
+					Toggle("Show hydrogens", isOn: $showHydros)
+						.toggleStyle(SwitchToggleStyle(tint: .green))
+					Spacer()
+				}
 			}
 			if errorLoadingData {
 				Text("Content could not be loaded")
@@ -78,9 +82,19 @@ struct ProteinDetailView: View {
 			if atomDetails[0].uppercased() == "ATOM"
 			{
 				let colorOfAtom = setColorOfAtom(atom: String(atomDetails[11]))
-				atoms.append(Atom(atomId: Int(atomDetails[1])!, atomName: String(atomDetails[2]), xCoordinate: Double(atomDetails[6])!, yCoordinate: Double(atomDetails[7])!, zCoordinate: Double(atomDetails[8])!, element: String(atomDetails[11]), color: colorOfAtom)) // TODO : Protect against invalid types (avoid force unwrapping)
+				atoms.append(Atom(atomId: Int(atomDetails[1])!,
+								  atomName: String(atomDetails[2]),
+								  xCoordinate: Double(atomDetails[6])!,
+								  yCoordinate: Double(atomDetails[7])!,
+								  zCoordinate: Double(atomDetails[8])!,
+								  element: String(atomDetails[11]),
+								  color: colorOfAtom,
+								 connections: [])) // TODO : Protect against invalid types (avoid force unwrapping)
 			}
 			else if atomDetails[0].uppercased() == "CONECT" {
+				for item in atomDetails.dropFirst() {
+					atoms[Int(atomDetails[1])! - 1].connections.append(contentsOf: [Int(item)!])
+				}
 				// TODO : Add connections
 			}
 			else if atomDetails[0].uppercased() == "END" {
@@ -91,9 +105,11 @@ struct ProteinDetailView: View {
 				return;
 			}
 		}
+		//print(atoms)
 		isLoading = false
 		finishedLoading = true
 	}
+	
 	func setColorOfAtom(atom: String) -> UIColor {
 
 		let colorOfAtom: UIColor
@@ -141,6 +157,7 @@ struct Atom {
 	var zCoordinate: Double
 	var element: String
 	var color: UIColor // TODO : make type Color
+	var connections: [Int] = []
 }
 
 struct ProteinDetailView_Previews: PreviewProvider {
