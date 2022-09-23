@@ -12,7 +12,7 @@ struct SceneKitView: UIViewRepresentable {
 	let atoms: [Atom]
 	@Binding var showHydros: Bool
 	
-	public func makeUIView(context: /*UIViewRepresentableContext<SceneKitView>*/Context) -> SCNView {
+	public func makeUIView(context: Context) -> SCNView {
 
 		let sceneView = SCNView()
 		let camera = SCNCamera()
@@ -25,43 +25,72 @@ struct SceneKitView: UIViewRepresentable {
 		sceneView.allowsCameraControl = true
 		sceneView.autoenablesDefaultLighting = true
 		sceneView.backgroundColor = UIColor.systemBackground
-		/*for item in atoms {
-			if item.element == "H" && !showHydros {
-				//
-				print("H found here : \(showHydros)")
-			}
-			else {
-				print("no H : \(showHydros)")
-				let sphere = SCNSphere(radius: 0.1)
-				sphere.firstMaterial?.diffuse.contents = item.color
-				let spherenode = SCNNode(geometry: sphere)
-				spherenode.position = SCNVector3(x: Float(item.xCoordinate) , y: Float(item.yCoordinate), z: Float(item.zCoordinate))
-				sceneView.scene?.rootNode.addChildNode(spherenode)
-			}
-		 }*/
-		sceneView.scene?.rootNode.addChildNode(cameraNode)
-		return sceneView
-	}
-	
-	func updateUIView(_ uiView: SCNView, context: /*UIViewRepresentableContext<SceneKitView>*/Context) {
-		uiView.allowsCameraControl = true
-		uiView.autoenablesDefaultLighting = true
-
 		for item in atoms {
 			let sphere = SCNSphere(radius: 0.1)
 			sphere.firstMaterial?.diffuse.contents = item.color
-			let spherenode = SCNNode(geometry: sphere)
-			spherenode.name = item.element
-			spherenode.position = SCNVector3(x: Float(item.xCoordinate) , y: Float(item.yCoordinate), z: Float(item.zCoordinate))
-			uiView.scene?.rootNode.addChildNode(spherenode)
+			let sphereNode = SCNNode(geometry: sphere)
+			//let line = SCNGeometry()
+			sphereNode.name = item.element
+			sphereNode.position = SCNVector3(x: Float(item.xCoordinate), y: Float(item.yCoordinate), z: Float(item.zCoordinate))
+			sceneView.scene?.rootNode.addChildNode(sphereNode)
+			//sceneView.scene?.rootNode.addChildNode(
+			//var geometry: SCNGeometry
+			for connection in item.connections {
+				let line = SCNGeometry.lineFrom(vector: sphereNode.position, toVector: SCNVector3(x: Float(atoms[connection - 1].xCoordinate), y: Float(atoms[connection - 1].yCoordinate), z: Float(atoms[connection - 1].zCoordinate)))
+				let lineNode = SCNNode(geometry: line)
+				sceneView.scene?.rootNode.addChildNode(lineNode)
+			}
+			//let lineNode = SCNNode(geometry: line)
+			//lineNode.addChildNode(line)
+			//sceneView.scene?.rootNode.addChildNode(sphereNode)
 
+
+			//print(sphereNode)
 		}
+		sceneView.scene?.rootNode.addChildNode(cameraNode)
+		
+		return sceneView
+	}
+	
+	func updateUIView(_ uiView: SCNView, context: Context) {
+		uiView.allowsCameraControl = true
+		uiView.autoenablesDefaultLighting = true
+
 		if (!showHydros) {
 			uiView.scene?.rootNode.childNodes.filter({ $0.name == "H" }).forEach({ $0.removeFromParentNode() })
+		}
+		else {
+			for item in atoms {
+				if item.element == "H" {
+				let sphere = SCNSphere(radius: 0.1)
+				sphere.firstMaterial?.diffuse.contents = item.color
+				let sphereNode = SCNNode(geometry: sphere)
+				sphereNode.name = item.element
+				sphereNode.position = SCNVector3(x: Float(item.xCoordinate), y: Float(item.yCoordinate), z: Float(item.zCoordinate))
+				uiView.scene?.rootNode.addChildNode(sphereNode)
+					/*for connection in item.connections {
+						let line = SCNGeometry.lineFrom(vector: sphereNode.position, toVector: SCNVector3(x: Float(atoms[connection - 1].xCoordinate), y: Float(atoms[connection - 1].yCoordinate), z: Float(atoms[connection - 1].zCoordinate)))
+						let lineNode = SCNNode(geometry: line)
+						uiView.scene?.rootNode.addChildNode(lineNode)
+					}*/
+				}
+			}
 		}
 	}
 	
 	typealias UIViewType = SCNView
+}
+
+extension SCNGeometry {
+	class func lineFrom(vector vector1: SCNVector3, toVector vector2: SCNVector3) -> SCNGeometry {
+		let indices: [Int32] = [0, 1]
+		
+		let source = SCNGeometrySource(vertices: [vector1, vector2])
+		let element = SCNGeometryElement(indices: indices, primitiveType: .line)
+		
+		return SCNGeometry(sources: [source], elements: [element])
+		
+	}
 }
 
 /*
