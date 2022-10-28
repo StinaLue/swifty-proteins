@@ -22,18 +22,23 @@ struct ProteinDetailView: View {
 	
 	@State private var contents = ""
 	@State private var atoms = [Atom]()
+	@State var tapLocation = CGPoint(x: 0.0, y: 0.0)
 	@State var ligand = ""
 
     var body: some View {
 		VStack {
 			if finishedLoading {
-				SceneKitView(atoms: atoms, showHydros: $showHydros)
+				SceneKitView(atoms: atoms, showHydros: $showHydros, tapLocation: $tapLocation)
+				.onTapGesture { location in
+						tapLocation = location
+					}
 				.scaledToFill()
 				//.scaledToFit()
 				HStack {
 					Spacer()
 					Toggle("Show hydrogens", isOn: $showHydros)
 						.toggleStyle(SwitchToggleStyle(tint: .green))
+					//Text("Atom : \(currentAtomName)")
 					Spacer()
 				}
 			}
