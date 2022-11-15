@@ -13,15 +13,11 @@ struct SceneKitView: UIViewRepresentable {
 	@Binding var showHydros: Bool
 	@State var sceneView = SCNView()
 	@Binding var tapLocation: CGPoint
-	//@State var teeeest: String = "hi"
 	
 	public func makeUIView(context: Context) -> SCNView {
 
-		//var sceneView = SCNView()
 		let camera = SCNCamera()
 		let cameraNode = SCNNode()
-		//let nodeLabel = SCNText(string: self.teeeest, extrusionDepth: 0)
-		//let textNode = SCNNode(geometry: nodeLabel)
 		
 		sceneView.scene = SCNScene()
 		cameraNode.camera = camera
@@ -31,12 +27,8 @@ struct SceneKitView: UIViewRepresentable {
 		sceneView.autoenablesDefaultLighting = true
 		sceneView.backgroundColor = UIColor.systemBackground
 		sceneView = drawNodesAndLines(sceneView: sceneView)
-		sceneView.scene?.rootNode.addChildNode(cameraNode)
-		//sceneView.scene?.rootNode.addChildNode(textNode)
-		//let hitResults = self.sceneView.hitTest(position, options: [:])
 
-		//let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
-		//sceneView.addGestureRecognizer(tapGesture)
+		sceneView.scene?.rootNode.addChildNode(cameraNode)
 
 		return sceneView
 	}
@@ -63,7 +55,7 @@ struct SceneKitView: UIViewRepresentable {
 		return(sceneView)
 	}
 	
-	// Calculation of the lines between two nodes
+	/// Calculation of the lines between two nodes
 	func lineBetweenNodes(positionA: SCNVector3, positionB: SCNVector3, inScene: SCNScene) -> SCNNode {
 		let vector = SCNVector3(positionA.x - positionB.x, positionA.y - positionB.y, positionA.z - positionB.z)
 		let distance = sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z)
@@ -90,19 +82,15 @@ struct SceneKitView: UIViewRepresentable {
 		if hitResults.count > 0 {
 			let result = hitResults[count]
 			let text = SCNText(string: result.node.name ?? "Not found", extrusionDepth: 0.2)
-			text.font = UIFont(name: "Skia-Regular_Black", size: 0.2)
+			text.font = UIFont(name: "Skia-Regular_Black", size: 2)
+			text.firstMaterial?.diffuse.contents = UIColor.black
 			let textNode = SCNNode(geometry: text)
 			textNode.scale = SCNVector3Make(0.1, 0.1, 1)
-			textNode.position = SCNVector3(x: -2, y: 1, z: -1)
-
-			print("first \(textNode)")
-			//textNode.removeFromParentNode()
+			textNode.position = SCNVector3(x: Float(result.node.position.x), y: Float(result.node.position.y), z: Float(result.node.position.z))
 			textNode.name = "oldNode"
 			uiView.scene?.rootNode.childNodes.filter({ $0.name == "oldNode" }).forEach({ $0.removeFromParentNode() })
 
 			uiView.scene?.rootNode.addChildNode(textNode)
-
-			print(textNode)
 			count = count + 1
 		}
 
