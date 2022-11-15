@@ -13,14 +13,14 @@ struct SceneKitView: UIViewRepresentable {
 	@Binding var showHydros: Bool
 	@State var sceneView = SCNView()
 	@Binding var tapLocation: CGPoint
-	@State var teeeest: String = "xs"
+	//@State var teeeest: String = "hi"
 	
 	public func makeUIView(context: Context) -> SCNView {
 
 		//var sceneView = SCNView()
 		let camera = SCNCamera()
 		let cameraNode = SCNNode()
-		let nodeLabel = SCNText(string: self.teeeest, extrusionDepth: 0)
+		//let nodeLabel = SCNText(string: self.teeeest, extrusionDepth: 0)
 		//let textNode = SCNNode(geometry: nodeLabel)
 		
 		sceneView.scene = SCNScene()
@@ -49,7 +49,7 @@ struct SceneKitView: UIViewRepresentable {
 			sphereNode.name = item.element
 			sphereNode.position = SCNVector3(x: Float(item.xCoordinate), y: Float(item.yCoordinate), z: Float(item.zCoordinate))
 			sceneView.scene?.rootNode.addChildNode(sphereNode)
-			for connection in item.connections.dropFirst() {
+			for connection in item.connections {//.dropFirst() { // TODO : Check if i really should drop
 				let positionA = sphereNode.position
 				let positionB = SCNVector3(x: Float(atoms[connection - 1].xCoordinate), y: Float(atoms[connection - 1].yCoordinate), z: Float(atoms[connection - 1].zCoordinate))
 				let node = lineBetweenNodes(positionA: positionA, positionB: positionB, inScene: sceneView.scene!)
@@ -89,8 +89,20 @@ struct SceneKitView: UIViewRepresentable {
 		var count = 0
 		if hitResults.count > 0 {
 			let result = hitResults[count]
-			self.teeeest = result.node.name ?? "No atom tapped" // TODO: Check this
-			print(self.teeeest)
+			let text = SCNText(string: result.node.name ?? "Not found", extrusionDepth: 0.2)
+			text.font = UIFont(name: "Skia-Regular_Black", size: 0.2)
+			let textNode = SCNNode(geometry: text)
+			textNode.scale = SCNVector3Make(0.1, 0.1, 1)
+			textNode.position = SCNVector3(x: -2, y: 1, z: -1)
+
+			print("first \(textNode)")
+			//textNode.removeFromParentNode()
+			textNode.name = "oldNode"
+			uiView.scene?.rootNode.childNodes.filter({ $0.name == "oldNode" }).forEach({ $0.removeFromParentNode() })
+
+			uiView.scene?.rootNode.addChildNode(textNode)
+
+			print(textNode)
 			count = count + 1
 		}
 

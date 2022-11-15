@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProteinListView: View {
-	@ObservedObject var model: Ligands
+	@ObservedObject var model: Ligands // TODO : obs. necessary?
 	@State private var searchText = ""
 	
 	var body: some View {
