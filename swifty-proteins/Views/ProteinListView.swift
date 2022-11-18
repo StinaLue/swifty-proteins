@@ -10,7 +10,15 @@ import SwiftUI
 struct ProteinListView: View {
 	@ObservedObject var model: Ligands // TODO : obs. necessary?
 	@State private var searchText = ""
-	
+    
+    var filteredLigands: [String] {
+        if searchText.isEmpty {
+            return model.dataArray
+        } else {
+            return model.dataArray.filter { $0.localizedCaseInsensitiveContains(searchText) }
+        }
+    }
+    
 	var body: some View {
 		NavigationView {
 			List {
@@ -26,13 +34,6 @@ struct ProteinListView: View {
 		}
 		.navigationBarHidden(true)
 		.navigationBarBackButtonHidden(true)
-	}
-	var filteredLigands: [String] {
-		if searchText.isEmpty {
-			return model.dataArray
-		} else {
-			return model.dataArray.filter { $0.localizedCaseInsensitiveContains(searchText) }
-		}
 	}
 }
 
