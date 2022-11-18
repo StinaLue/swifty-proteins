@@ -12,6 +12,15 @@ struct ProteinListView: View {
 	@State private var searchText = ""
 	@State private var errorLoadingData: Bool = false
 	
+    
+    var filteredLigands: [String] {
+        if searchText.isEmpty {
+            return model.dataArray
+        } else {
+            return model.dataArray.filter { $0.localizedCaseInsensitiveContains(searchText) }
+        }
+    }
+    
 	var body: some View {
 		NavigationView {
 			List {
@@ -48,13 +57,6 @@ struct ProteinListView: View {
 			}
 		} message: {
 			Text("Check your internet connection or retry later")
-		}
-	}
-	var filteredLigands: [String] {
-		if searchText.isEmpty {
-			return model.dataArray
-		} else {
-			return model.dataArray.filter { $0.localizedCaseInsensitiveContains(searchText) }
 		}
 	}
 }

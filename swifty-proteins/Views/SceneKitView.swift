@@ -11,7 +11,8 @@ import SceneKit
 struct SceneKitView: UIViewRepresentable {
 	let atoms: [Atom]
 	@Binding var showHydros: Bool
-	@State var sceneView = SCNView()
+    @State private var scene: SCNScene = SCNScene()
+    @Binding var sceneView: SCNView
 	@Binding var tapLocation: CGPoint
 	
 	public func makeUIView(context: Context) -> SCNView {
@@ -19,7 +20,7 @@ struct SceneKitView: UIViewRepresentable {
 		let camera = SCNCamera()
 		let cameraNode = SCNNode()
 		
-		sceneView.scene = SCNScene()
+        sceneView.scene = scene
 		cameraNode.camera = camera
 		cameraNode.position = SCNVector3(x: 0.0, y: 0.0, z: 30.0)
 		
@@ -33,27 +34,32 @@ struct SceneKitView: UIViewRepresentable {
 		return sceneView
 	}
 	
-	func drawNodesAndLines(sceneView: SCNView) -> SCNView {
-		for item in atoms {
-			let sphere = SCNSphere(radius: 0.1)
-			sphere.firstMaterial?.diffuse.contents = item.color
-			let sphereNode = SCNNode(geometry: sphere)
-			sphereNode.name = item.element
-			sphereNode.position = SCNVector3(x: Float(item.xCoordinate), y: Float(item.yCoordinate), z: Float(item.zCoordinate))
-			sceneView.scene?.rootNode.addChildNode(sphereNode)
-			for connection in item.connections {//.dropFirst() { // TODO : Check if i really should drop
-				let positionA = sphereNode.position
-				let positionB = SCNVector3(x: Float(atoms[connection - 1].xCoordinate), y: Float(atoms[connection - 1].yCoordinate), z: Float(atoms[connection - 1].zCoordinate))
-				let node = lineBetweenNodes(positionA: positionA, positionB: positionB, inScene: sceneView.scene!)
-				if item.element == "H" || atoms[connection - 1].element == "H" {
-					node.name = "H"
-				}
-				sceneView.scene?.rootNode.addChildNode(node)
-			}
-		}
-
-		return(sceneView)
-	}
+    func drawNodesAndLines(sceneView: SCNView) -> SCNView {
+        for item in atoms {
+            let sphere = SCNSphere(radius: 0.1)
+            sphere.firstMaterial?.diffuse.contents = item.color
+            let sphereNode = SCNNode(geometry: sphere)
+            sphereNode.name = item.element
+            sphereNode.position = SCNVector3(x: Float(item.xCoordinate), y: Float(item.yCoordinate), z: Float(item.zCoordinate))
+            sceneView.scene?.rootNode.addChildNode(sphereNode)
+            for connection in item.connections {//.dropFirst() { // TODO : Check if i really should drop
+                let positionA = sphereNode.position
+                let positionB = SCNVector3(x: Float(atoms[connection - 1].xCoordinate), y: Float(atoms[connection - 1].yCoordinate), z: Float(atoms[connection - 1].zCoordinate))
+                let node = lineBetweenNodes(positionA: positionA, positionB: positionB, inScene: sceneView.scene!)
+                if item.element == "H" || atoms[connection - 1].element == "H" {
+                    node.name = "H"
+                }
+                sceneView.scene?.rootNode.addChildNode(node)
+            }
+        }
+        
+        if (!showHydros)
+        {
+            sceneView.scene?.rootNode.childNodes.filter({ $0.name == "H" }).forEach({ $0.removeFromParentNode() })
+        }
+        
+        return(sceneView)
+    }
 	
 	/// Calculation of the lines between two nodes
 	func lineBetweenNodes(positionA: SCNVector3, positionB: SCNVector3, inScene: SCNScene) -> SCNNode {
@@ -93,32 +99,7 @@ struct SceneKitView: UIViewRepresentable {
 			uiView.scene?.rootNode.addChildNode(textNode)
 			count = count + 1
 		}
-
-		if (!showHydros) {
-			uiView.scene?.rootNode.childNodes.filter({ $0.name == "H" }).forEach({ $0.removeFromParentNode() })
-		}
-		//uiView = drawNodesAndLines(sceneView: uiView)
-
-		else {
-			for item in atoms {
-					let sphere = SCNSphere(radius: 0.1)
-					sphere.firstMaterial?.diffuse.contents = item.color
-					let sphereNode = SCNNode(geometry: sphere)
-					sphereNode.name = item.element
-					sphereNode.position = SCNVector3(x: Float(item.xCoordinate), y: Float(item.yCoordinate), z: Float(item.zCoordinate))
-				if item.element == "H" {
-					uiView.scene?.rootNode.addChildNode(sphereNode)
-				}
-				for connection in item.connections {
-					if atoms[connection - 1].element == "H" {
-						let positionA = sphereNode.position
-						let positionB = SCNVector3(x: Float(atoms[connection - 1].xCoordinate), y: Float(atoms[connection - 1].yCoordinate), z: Float(atoms[connection - 1].zCoordinate))
-						let node = lineBetweenNodes(positionA: positionA, positionB: positionB, inScene: uiView.scene!)
-						uiView.scene?.rootNode.addChildNode(node)
-					}
-				}
-			}
-		}
+        sceneView = drawNodesAndLines(sceneView: uiView)
 	}
 	typealias UIViewType = SCNView
 }

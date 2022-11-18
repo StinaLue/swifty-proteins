@@ -19,16 +19,38 @@ struct ProteinDetailView: View {
 	@State private var finishedLoading = false
 	@State private var showHydros = true
 
-	
-	@State private var contents = ""
 	@State private var atoms = [Atom]()
 	@State var tapLocation = CGPoint(x: 0.0, y: 0.0)
 	@State var ligand = ""
-
+    
+    @State var sceneView = SCNView()
+    @State var snapshot: Image?
+    /*
+    @State private var cameraNode: SCNNode = SCNNode()
+    @State private var scene: SCNScene = SCNScene()
+*/
+    @ViewBuilder
     var body: some View {
 		VStack {
 			if finishedLoading {
-				SceneKitView(atoms: atoms, showHydros: $showHydros, tapLocation: $tapLocation)
+                Button {
+                    let flippedUIsnapshot: UIImage = sceneView.snapshot()
+                    //let UIsnapshot = UIImage(cgImage: flippedUIsnapshot.cgImage!, scale: 1.0, orientation: .downMirrored)
+                    let UIsnapshot = flippedUIsnapshot
+                    snapshot = Image(uiImage: UIsnapshot)
+                    print("Snapshot taken !")
+                } label: {
+                    Image(systemName: "camera")
+                }
+                .toolbar {
+                    ToolbarItem(placement: .navigation) {
+                        if snapshot != nil {
+                            ShareLink(item: snapshot!, preview: SharePreview("protein", image: snapshot!))
+                        }
+                    }
+                }
+                SceneKitView(atoms: atoms, showHydros: $showHydros, sceneView: $sceneView, tapLocation: $tapLocation)
+                //SceneKitView(atoms: atoms, showHydros: $showHydros, tapLocation: $tapLocation, scene: $scene, cameraNode: $cameraNode)
 				.onTapGesture { location in
 						tapLocation = location
 					}
@@ -52,19 +74,38 @@ struct ProteinDetailView: View {
 			}
 		}
 		.navigationTitle("Ligand: \(ligand)")
-		.onAppear { fetchLigandIdealData() }
+        //.onAppear { fetchLigandIdealData() }
+		.task {
+            //cameraNode = createCamera()
+            await fetchLigandIdealData()
+        }
 		/*.alert("A problem occured. Please check your connection and try again.", isPresented: $showingAlert) {
 			Button("OK", role: .cancel) { isLoading = true }
 		}*/
 	}
 	
-	func fetchLigandIdealData() {
+   /* func createCamera() -> SCNNode {
+        print("New camera created")
+        let camera = SCNCamera()
+        let cameraNode = SCNNode()
+        
+        cameraNode.camera = camera
+        cameraNode.position = SCNVector3(x: 0.0, y: 0.0, z: 30.0)
+        scene.rootNode.addChildNode(cameraNode)
+        return cameraNode
+    }*/
+    
+	func fetchLigandIdealData() async {
+        errorLoadingData = false
 		if let url = URL(string: "https://files.rcsb.org/ligands/view/\(ligand)_ideal.pdb") {
 			do {
-				contents = try String(contentsOf: url)
+                let data:Data
+                (data, _) = try await URLSession.shared.data(from: url)
+                let contents = String(decoding: data, as: UTF8.self)
+				//print(contents)
 				isLoading = false
-				errorLoadingData = false
-				loadLigandIdealData()
+                                errorLoadingData = false
+                loadLigandIdealData(input: contents)
 			} catch {
 				print("Content could not be loaded")
 				errorLoadingData = true
@@ -77,8 +118,8 @@ struct ProteinDetailView: View {
 		}
 	}
 	
-	func loadLigandIdealData() {
-		let dataLines = contents.split(separator: "\n")
+    func loadLigandIdealData(input: String) {
+		let dataLines = input.split(separator: "\n")
 		for line in dataLines {
 			// TODO : Protect against invalid files
 			let atomDetails = line.split(separator: " ")
@@ -162,9 +203,10 @@ struct Atom {
 	var color: UIColor // TODO : make type Color
 	var connections: [Int] = []
 }
-
+/*
 struct ProteinDetailView_Previews: PreviewProvider {
     static var previews: some View {
         ProteinDetailView(ligand: "001")
     }
 }
+*/
