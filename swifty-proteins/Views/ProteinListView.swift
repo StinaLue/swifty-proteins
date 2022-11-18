@@ -19,6 +19,21 @@ struct ProteinListView: View {
 						Text(ligand)
 					}
 				}
+				.listRowSeparator(.hidden)
+				.listRowBackground(
+					RoundedRectangle(cornerRadius: 20)
+						.background(.clear)
+						.foregroundColor(Color.white)
+						.padding(
+							EdgeInsets(
+								top: 3,
+								leading: 0,
+								bottom: 3,
+								trailing: 00
+							)
+						)
+				)
+				.listRowSeparator(.hidden)
 			}
 			.padding(.bottom)
 			.navigationTitle("Ligands")
