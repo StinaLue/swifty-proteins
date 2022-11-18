@@ -23,7 +23,7 @@ struct ProteinListView: View {
 				.listRowBackground(
 					RoundedRectangle(cornerRadius: 20)
 						.background(.clear)
-						.foregroundColor(Color.white)
+						.foregroundColor(Color.gray)
 						.padding(
 							EdgeInsets(
 								top: 3,

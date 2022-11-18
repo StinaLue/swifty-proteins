@@ -9,7 +9,7 @@ import SwiftUI
 import LocalAuthentication // Needed for Face ID / Biometric auth
 
 struct ContentView: View {
-	@State private var isUnlocked = true // TODO : put this to false
+	@State private var isUnlocked = false // TODO : put this to false
 	@State private var noBiometrics = false
 	@ObservedObject var model = Ligands()
 	
@@ -56,7 +56,7 @@ struct ContentView: View {
 					isUnlocked = true
 					// authenticated successfully
 				} else {
-					let code = LAError.Code(rawValue: error!.code) // TODO : Verify
+					let code = LAError.Code(rawValue: error?.code ?? 0) // TODO : Verify
 					
 					switch code! {
 					case .appCancel:
