@@ -13,7 +13,7 @@ import SceneKit
 struct ProteinDetailView: View {
 	
 	@State private var isLoading = true
-	@State private var errorLoadingData = false
+	@Binding var errorLoadingData: Bool
 	@State private var wrongURL = false
 	@State private var showingAlert = true
 	@State private var finishedLoading = false
@@ -33,12 +33,10 @@ struct ProteinDetailView: View {
 						tapLocation = location
 					}
 				.scaledToFill()
-				//.scaledToFit()
 				HStack {
 					Spacer()
 					Toggle("Show hydrogens", isOn: $showHydros)
 						.toggleStyle(SwitchToggleStyle(tint: .green))
-					//Text("Atom : \(currentAtomName)")
 					Spacer()
 				}
 			}
@@ -58,14 +56,14 @@ struct ProteinDetailView: View {
 		/*.alert("A problem occured. Please check your connection and try again.", isPresented: $showingAlert) {
 			Button("OK", role: .cancel) { isLoading = true }
 		}*/
-    }
+	}
 	
 	func fetchLigandIdealData() {
 		if let url = URL(string: "https://files.rcsb.org/ligands/view/\(ligand)_ideal.pdb") {
 			do {
 				contents = try String(contentsOf: url)
-				//print(contents)
 				isLoading = false
+				errorLoadingData = false
 				loadLigandIdealData()
 			} catch {
 				print("Content could not be loaded")

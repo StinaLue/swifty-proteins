@@ -10,12 +10,13 @@ import SwiftUI
 struct ProteinListView: View {
 	@ObservedObject var model: Ligands // TODO : obs. necessary?
 	@State private var searchText = ""
+	@State private var errorLoadingData: Bool = false
 	
 	var body: some View {
 		NavigationView {
 			List {
 				ForEach(filteredLigands, id: \.self) { ligand in
-					NavigationLink(destination: ProteinDetailView(ligand: ligand)) {
+					NavigationLink(destination: ProteinDetailView(errorLoadingData: $errorLoadingData, ligand: ligand)) {
 						Text(ligand)
 					}
 				}
@@ -41,6 +42,13 @@ struct ProteinListView: View {
 		}
 		.navigationBarHidden(true)
 		.navigationBarBackButtonHidden(true)
+		.alert("Couldn't fetch the protein", isPresented: $errorLoadingData) {
+			Button("OK :´(", role: .cancel) {
+				//errorLoadingData = false
+			}
+		} message: {
+			Text("Check your internet connection or retry later")
+		}
 	}
 	var filteredLigands: [String] {
 		if searchText.isEmpty {
