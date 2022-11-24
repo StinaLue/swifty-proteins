@@ -158,34 +158,68 @@ struct ProteinDetailView: View {
 	func setColorOfAtom(atom: String) -> UIColor {
 
 		let colorOfAtom: UIColor
-		if atom == "H" {
-			colorOfAtom = UIColor.white
-		}
-		else if atom == "C" {
-			colorOfAtom = UIColor.gray
-		}
-		else if atom == "F" {
-			colorOfAtom = UIColor.green
-		}
-		else if atom == "L" {
-			colorOfAtom = UIColor.brown
-		}
-		else if atom == "N" {
-			colorOfAtom = UIColor.blue
-		}
-		else if atom == "O" {
-			colorOfAtom = UIColor.red
-		}
-		else if atom == "P" {
-			colorOfAtom = UIColor.orange
-		}
-		else if atom == "S" {
-			colorOfAtom = UIColor.yellow
-		}
-		else if atom == "MG" {
-			colorOfAtom = UIColor.magenta
-		}
-		else {
+		switch atom {
+		case "H":
+			colorOfAtom = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+		case "C":
+			colorOfAtom = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+		case "N": 
+			colorOfAtom = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
+		case "O": 
+			colorOfAtom = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
+		case "F": 
+			colorOfAtom = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
+		case "CI": 
+			colorOfAtom = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
+		case "BR": 
+			colorOfAtom = UIColor(red: 0.6, green: 0.13, blue: 0, alpha: 1)
+		case "I": 
+			colorOfAtom = UIColor(red: 0.4, green: 0, blue: 0.73, alpha: 1)
+		case "HE": 
+			colorOfAtom = UIColor(red: 0, green: 1, blue: 1, alpha: 1)
+		case "NE": 
+			colorOfAtom = UIColor(red: 0, green: 1, blue: 1, alpha: 1)
+		case "AR": 
+			colorOfAtom = UIColor(red: 0, green: 1, blue: 1, alpha: 1)
+		case "XE": 
+			colorOfAtom = UIColor(red: 0, green: 1, blue: 1, alpha: 1)
+		case "KR": 
+			colorOfAtom = UIColor(red: 0, green: 1, blue: 1, alpha: 1)
+		case "P": 
+			colorOfAtom = UIColor(red: 1, green: 0.564, blue: 0, alpha: 1)
+		case "S": 
+			colorOfAtom = UIColor(red: 1, green: 0.898, blue: 1.33, alpha: 1)
+		case "B": 
+			colorOfAtom = UIColor(red: 1, green: 0.66, blue: 0.46, alpha: 1)
+		case "LI": 
+			colorOfAtom = UIColor(red: 0.46, green: 0, blue: 1, alpha: 1)
+		case "NA": 
+			colorOfAtom = UIColor(red: 0.46, green: 0, blue: 1, alpha: 1)
+		case "K":
+			colorOfAtom = UIColor(red: 0.46, green: 0, blue: 1, alpha: 1)
+		case "RB": 
+			colorOfAtom = UIColor(red: 0.46, green: 0, blue: 1, alpha: 1)
+		case "CS": 
+			colorOfAtom = UIColor(red: 0.46, green: 0, blue: 1, alpha: 1)
+		case "FR": 
+			colorOfAtom = UIColor(red: 0.46, green: 0, blue: 1, alpha: 1)
+		case "BE": 
+			colorOfAtom = UIColor(red: 0, green: 0.46, blue: 0, alpha: 1)
+		case "MG": 
+			colorOfAtom = UIColor(red: 0, green: 0.46, blue: 0, alpha: 1)
+		case "CA": 
+			colorOfAtom = UIColor(red: 0, green: 0.46, blue: 0, alpha: 1)
+		case "SR": 
+			colorOfAtom = UIColor(red: 0, green: 0.46, blue: 0, alpha: 1)
+		case "BA": 
+			colorOfAtom = UIColor(red: 0, green: 0.46, blue: 0, alpha: 1)
+		case "RA": 
+			colorOfAtom = UIColor(red: 0, green: 0.46, blue: 0, alpha: 1)
+		case "TI": 
+			colorOfAtom = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+		case "FE": 
+			colorOfAtom = UIColor(red: 0.86, green: 0.46, blue: 0, alpha: 1)
+		default:
 			colorOfAtom =  UIColor.cyan
 		}
 		return(colorOfAtom)

@@ -91,14 +91,14 @@ struct SceneKitView: UIViewRepresentable {
 		var count = 0
 		if hitResults.count > 0 {
 			let result = hitResults[count]
-			let text = SCNText(string: result.node.name ?? "Not found", extrusionDepth: 0.2)
+			let text = SCNText(string: result.node.name ?? "", extrusionDepth: 0.2)
 			text.font = UIFont(name: "Skia-Regular_Black", size: 2)
 			colorScheme == .dark ? (text.firstMaterial?.diffuse.contents = UIColor.white) : (text.firstMaterial?.diffuse.contents = UIColor.black)
 			let textNode = SCNNode(geometry: text)
 			textNode.scale = SCNVector3Make(0.1, 0.1, 1)
 			textNode.position = SCNVector3(x: Float(result.node.position.x), y: Float(result.node.position.y), z: Float(result.node.position.z))
-			textNode.name = "oldNode"
-			uiView.scene?.rootNode.childNodes.filter({ $0.name == "oldNode" }).forEach({ $0.removeFromParentNode() })
+			textNode.name = "   "
+			uiView.scene?.rootNode.childNodes.filter({ $0.name == "   " }).forEach({ $0.removeFromParentNode() })
 
 			uiView.scene?.rootNode.addChildNode(textNode)
 			count = count + 1
