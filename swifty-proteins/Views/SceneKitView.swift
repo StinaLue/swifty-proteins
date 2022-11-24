@@ -14,6 +14,7 @@ struct SceneKitView: UIViewRepresentable {
     @State private var scene: SCNScene = SCNScene()
     @Binding var sceneView: SCNView
 	@Binding var tapLocation: CGPoint
+	@Environment(\.colorScheme) var colorScheme
 	
 	public func makeUIView(context: Context) -> SCNView {
 
@@ -42,15 +43,17 @@ struct SceneKitView: UIViewRepresentable {
             sphereNode.name = item.element
             sphereNode.position = SCNVector3(x: Float(item.xCoordinate), y: Float(item.yCoordinate), z: Float(item.zCoordinate))
             sceneView.scene?.rootNode.addChildNode(sphereNode)
-            for connection in item.connections {//.dropFirst() { // TODO : Check if i really should drop
-                let positionA = sphereNode.position
-                let positionB = SCNVector3(x: Float(atoms[connection - 1].xCoordinate), y: Float(atoms[connection - 1].yCoordinate), z: Float(atoms[connection - 1].zCoordinate))
-                let node = lineBetweenNodes(positionA: positionA, positionB: positionB, inScene: sceneView.scene!)
-                if item.element == "H" || atoms[connection - 1].element == "H" {
-                    node.name = "H"
-                }
-                sceneView.scene?.rootNode.addChildNode(node)
-            }
+			for connection in item.connections {//.dropFirst() { // TODO : Check if i really should drop
+				if(connection - 1 < atoms.count) {
+					let positionA = sphereNode.position
+					let positionB = SCNVector3(x: Float(atoms[connection - 1].xCoordinate), y: Float(atoms[connection - 1].yCoordinate), z: Float(atoms[connection - 1].zCoordinate))
+					let node = lineBetweenNodes(positionA: positionA, positionB: positionB, inScene: sceneView.scene!)
+					if item.element == "H" || atoms[connection - 1].element == "H" {
+						node.name = "H"
+					}
+					sceneView.scene?.rootNode.addChildNode(node)
+				}
+			}
         }
         
         if (!showHydros)
@@ -83,13 +86,14 @@ struct SceneKitView: UIViewRepresentable {
 		uiView.allowsCameraControl = true
 		uiView.autoenablesDefaultLighting = true
 		
-		let hitResults = uiView.hitTest(tapLocation, options: [:])
+		let hitTestOptions: [SCNHitTestOption: Any] = [.searchMode : 0]
+		let hitResults = uiView.hitTest(tapLocation, options: hitTestOptions)
 		var count = 0
 		if hitResults.count > 0 {
 			let result = hitResults[count]
 			let text = SCNText(string: result.node.name ?? "Not found", extrusionDepth: 0.2)
 			text.font = UIFont(name: "Skia-Regular_Black", size: 2)
-			text.firstMaterial?.diffuse.contents = UIColor.black
+			colorScheme == .dark ? (text.firstMaterial?.diffuse.contents = UIColor.white) : (text.firstMaterial?.diffuse.contents = UIColor.black)
 			let textNode = SCNNode(geometry: text)
 			textNode.scale = SCNVector3Make(0.1, 0.1, 1)
 			textNode.position = SCNVector3(x: Float(result.node.position.x), y: Float(result.node.position.y), z: Float(result.node.position.z))

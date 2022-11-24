@@ -35,7 +35,6 @@ struct ProteinDetailView: View {
 			if finishedLoading {
                 Button {
                     let flippedUIsnapshot: UIImage = sceneView.snapshot()
-                    //let UIsnapshot = UIImage(cgImage: flippedUIsnapshot.cgImage!, scale: 1.0, orientation: .downMirrored)
                     let UIsnapshot = flippedUIsnapshot
                     snapshot = Image(uiImage: UIsnapshot)
                     print("Snapshot taken !")
@@ -137,7 +136,9 @@ struct ProteinDetailView: View {
 			}
 			else if atomDetails[0].uppercased() == "CONECT" {
 				for item in atomDetails.dropFirst() {
-					atoms[Int(atomDetails[1])! - 1].connections.append(contentsOf: [Int(item)!])
+					if(Int(atomDetails[1])! - 1 < atoms.count) {
+						atoms[Int(atomDetails[1])! - 1].connections.append(contentsOf: [Int(item)!])
+					}
 				}
 				// TODO : Add connections
 			}
@@ -180,6 +181,9 @@ struct ProteinDetailView: View {
 		}
 		else if atom == "S" {
 			colorOfAtom = UIColor.yellow
+		}
+		else if atom == "MG" {
+			colorOfAtom = UIColor.magenta
 		}
 		else {
 			colorOfAtom =  UIColor.cyan
